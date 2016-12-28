@@ -1,0 +1,1181 @@
+\documentclass[a4paper,openany]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{xparse}
+\usepackage{enumitem}
+\usepackage{centernot}
+\usepackage{comment}
+
+\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm]{geometry}
+
+% \usepackage{setspace}
+%\doublespace
+\usepackage{epstopdf}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\newcounter{TheoremCounter}
+\newtheorem{theorem}[TheoremCounter]{Теорема}
+\newtheorem*{lemma}{Лемма}
+
+\newcommand{\norma}{}
+\usepackage{mainstyle}
+\renewcommand{\theenumii}{\asbuk{enumii}}
+
+% For cyrillic symbols in "enumerate" environment.
+\renewcommand{\theenumii}{\asbuk{enumii}}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{ы}
+
+
+%====================================================================================
+%   ENVIORONMENTS
+
+\newenvironment{definition}
+{\begin{statement}{Определение}}
+    {\end{statement}}
+
+\newenvironment{characteristics}
+{\begin{statementItemed}{Свойства}}
+    {\end{statementItemed}}
+
+\newenvironment{note}
+{\begin{statementDotted}{Замечание}}
+    {\end{statementDotted}}
+
+\newenvironment{notes}
+{\begin{statementItemed}{Замечания}}
+    {\end{statementItemed}}
+
+\newenvironment{proofUndotted}
+{{\raggedright \textit{Доказательство}}}
+{\begin{flushright}
+       \boxed{}
+ \end{flushright}
+}
+
+\newenvironment{noteo}{}{}
+\RenewDocumentEnvironment{noteo}{o}
+{{\raggedright \textbf{Замечание}\IfValueTF{#1}{ (\textit{#1})}{}.}$  $
+
+}
+{}
+
+\newenvironment{consequence}{}{}
+\RenewDocumentEnvironment{consequence}{o}
+{{\raggedright \textbf{Следствие}\IfValueTF{#1}{ (\textit{#1})}{}.}$  $
+
+    }
+{}
+
+\NewDocumentEnvironment{consequences}{o}
+{\raggedright \textbf{Следствия}\IfValueTF{#1}{(\textit{#1})}{}:\begin{enumerate}}
+    {\end{enumerate}}
+
+
+% \RenewDocumentEnvironment{theorem}{o}
+% {{\raggedright
+%   \textbf{Теорема}\IfValueTF{#1}{ (\textit{#1})}{}}.$  $
+%
+% }
+
+\NewDocumentEnvironment{stm}{o}
+{{\raggedright
+  \textbf{Утверждение}\IfValueTF{#1}{ (\textit{#1})}{}}.$  $
+
+}
+
+\NewDocumentEnvironment{plan}{o}
+{\raggedright \textbf{Краткий план}\IfValueTF{#1}{(\textit{#1})}{}:\begin{enumerate}}
+	{\end{enumerate}}
+
+\newenvironment{theoremNamed}{}{}
+\RenewDocumentEnvironment{theoremNamed}{m o}
+{{\raggedright
+  \textbf{Теорема #1}\IfValueTF{#2}{ (\textit{#2})}{}}.$  $
+
+}
+
+
+\RenewDocumentEnvironment{lemma}{o}
+{{\raggedright
+        \textbf{Лемма}\IfValueTF{#1}{ (\textit{#1})}{}}.$  $
+
+}
+
+\newenvironment{lemmaNamed}{}{}
+\RenewDocumentEnvironment{lemmaNamed}{m o}
+{{\raggedright
+        \textbf{Лемма #1}\IfValueTF{#2}{ (\textit{#2})}{}}.$  $
+
+}
+
+
+\newenvironment{exercise}
+{\begin{statementDotted}{Упражнение}}
+    {\end{statementDotted}}
+
+\newenvironment{example}
+{\begin{statementDotted}{Пример}}
+    {\end{statementDotted}}
+
+\newenvironment{examples}
+{\begin{statementItemed}{Примеры}}
+    {\end{statementItemed}}
+
+% =================================
+% math functions
+\newcommand{\abs}[1]{
+    \left\lvert #1 \right\rvert
+}
+
+\newcommand{\maxf}[1]{
+    \max \left\{ #1 \right\}
+}
+
+\newcommand{\suchthat}{
+    \;\ifnum\currentgrouptype=16 \middle\fi|\;
+}
+
+\newcommand{\arc}[1]{
+    \buildrel\,\,\frown\over{#1}
+}
+
+\DeclareMathOperator{\const}{\text{const}}
+
+\DeclareMathOperator{\fix}{\text{fix }}
+\DeclareMathOperator{\diam}{diam\,}
+\DeclareMathOperator{\mes}{mes}
+\DeclareMathOperator{\divergence}{div}
+
+\DeclareMathOperator{\arcsh}{arcsh}
+\DeclareMathOperator{\arth}{{arth}}
+\DeclareMathOperator{\arcth}{{arcth}}
+\DeclareMathOperator{\sgn}{sgn}
+
+% \DeclareMathOperator{\deg}{deg}
+
+\newcommand{\parenthesis}[1]{%
+    \left( #1 \right)
+}
+
+\newcommand{\plot}[1]{$ \text{Г}_{#1} $}
+
+\newcommand{\limlim}[2]
+{ \lim\limits_{ \substack{ #1 \\ #2 } } }
+
+\newcommand{\limitslimits}[2]
+{ \limits_{ \substack{ #1 \\ #2 } } }
+
+\newcommand{\limlimlim}[3]
+{ \lim\limits_{ \substack{ #1 \\ #2 \\ #3 } } }
+
+\newcommand{\nullFrac}{\dfrac{ }{}}
+
+\renewcommand{\emptyset}{\varnothing}
+
+\newcommand{\diint}{\displaystyle\iint}
+
+\newcommand{\liml}{\lim\limits}
+\newcommand{\intl}{\int\limits}
+\newcommand{\iintl}{\iint\limits}
+\newcommand{\diintl}{\diint\limits}
+\newcommand{\dintl}{\dint\limits}
+
+\newcommand{\suml}{\sum\limits}
+\newcommand{\sumnzi}{\sum\limits_{n=0}^{\infty}}
+\newcommand{\limninf}{\lim\limits_{n\to\infty}}
+\newcommand{\dintlzi}{\dintl_0^{+\infty}}
+
+
+%========================================================
+% text style
+
+\newcommand{\important}[1]{\textit{#1}}
+
+\newcommand{\dint}{\displaystyle\int}
+\newcommand{\dsum}{\displaystyle\sum}
+
+\newcommand{\oiint}[2]{
+    \begin{tikzpicture}[baseline=(C.base)]
+        \node(C) {$ \displaystyle \iintl_{#1}^{#2} $};
+        \draw (0,0.15) circle (0.25);
+        %\node[draw,circle,inner sep=1pt](C) ++ (0, 0.1) {$ \;\;\;\; $};
+    \end{tikzpicture}
+}
+
+\newcommand{\circled}[1]{
+    \begin{tikzpicture}[baseline=(C.base)]
+    \node[draw,circle,inner sep=1pt](C) {#1};
+    \end{tikzpicture}
+}
+
+\newcommand{\eqlhopital}{%
+    \overset{\circled{Л}}{=}}
+
+\newcommand{\neqlhopital}{%
+    \overset{\circled{Л}}{\neq}}
+
+\newcommand{\sqcase}[1]{%
+    \left[\begin{matrix}#1\end{matrix}\right]
+}
+
+\newcommand{\Arg}{%
+  \operatorname{Arg}
+}
+
+\newcommand{\Ln}{%
+  \operatorname{Ln}
+}
+
+\newcommand{\Arsh}{%
+  \operatorname{Arsh}
+}
+
+\newcommand{\Arch}{%
+  \operatorname{Arch}
+}
+
+\newcommand{\Arth}{%
+  \operatorname{Arth}
+}
+
+\newcommand{\Arcth}{%
+  \operatorname{Arcth}
+}
+
+\newcommand{\Arcsin}{%
+  \operatorname{Arcsin}
+}
+
+\newcommand{\Arccos}{%
+  \operatorname{Arccos}
+}
+
+\newcommand{\Arctg}{%
+  \operatorname{Arctg}
+}
+
+\newcommand{\Arcctg}{%
+  \operatorname{Arcctg}
+}
+
+\renewcommand{\th}{%
+  \operatorname{th}
+}
+
+\renewcommand{\cth}{%
+  \operatorname{cth}
+}
+
+
+\newcommand{\dvert}{\left.\nullFrac\right\vert}
+
+\renewcommand{\r}[1]{$\overset{\text{ }_\bullet\text{ }}{\text{#1}}$}
+
+\renewcommand{\norma}[1]{\left\lvert\left\lvert#1\right\rvert\right\rvert}
+\newcommand{\norm}[1]{\left\lvert\left\lvert#1\right\rvert\right\rvert}
+
+\newcommand{\RN}{\mathbb{R}^n}
+\newcommand{\R}[1]{\mathbb{R}^{#1}}
+
+% =================================
+% sets utilities
+
+\newcommand{\defineset}[2]{
+    \left\{ #1 \, \middle\vert \, #2 \right\}
+}
+
+\newcommand{\set}[1]{
+    \left\{ #1 \right\}
+}
+
+\newcommand{\colquestion}[1]{\section{#1}}
+\newenvironment{col-answer-preambule}
+               {\ignorespaces}
+               {\ignorespacesafterend}
+
+\begin{document}
+\begin{center}
+  \LARGE\underline{\textbf{Теория графов}}\\
+\end{center}
+
+Конспект:
+https://drive.google.com/open?id=0B7NhKjbM4DhuVkNYenBQc2NzZEU
+
+Нам не надо доказательства знать
+
+План:
+0. Введение
+1. Деревья
+2. Связность
+3. Независимость и покрытие
+4. Планарность
+5. Обходы в графах
+6. Раскраски
+7. Ориентированные графы
+8. Степенные последовательности
+9. Гиперграфы
+10. Алгоритмические аспекты теории графов. Теория сложности
+
+
+
+\chapter{Введение}
+
+\begin{stm}
+  Объединение двух несовпадающих (a,b)-цепей содержит простой цикл.
+\end{stm}
+\begin{stm}
+  Пусть C1и C2- два различных простых цикла, у которых имеется общее ребро e, тогда (С1С2)-e также содержит простой цикл.
+\end{stm}
+\begin{stm}
+  Для связности графа необходимо и достаточно, чтобы в нем для какой-либо фиксированной вершины u и каждой другой вершины v существовал (u,v)-маршрут.
+\end{stm}
+\begin{stm}
+  Каждый граф представляется в виде дизъюнктого объединения своих связных компонент ( однозначным образом).
+\end{stm}
+\begin{stm}
+  G-связный граф, e-ребро, если e принадлежит циклу, то граф G-e связен.
+\end{stm}
+\begin{stm}
+  G-связный граф, если e-ребро не принадлежит циклу, то G-e имеет 2 компоненты связности.
+\end{stm}
+
+\begin{definition}
+  Мультиграф - допускаются кратные рёбра, псевдограф - допускаются петли
+\end{definition}
+
+\chapter{Деревья}
+\begin{definition}
+  Граф будем называть ацикличным, если в нём нет циклов.
+\end{definition}
+\begin{definition}
+  (n,m)-графом будем называть граф, содержащий n вершин и m рёбер.
+\end{definition}
+
+\begin{theorem}
+  Если граф $G - (n,m)$-граф, тогда следующие утверждения эквивалентны:
+  \begin{enumerate}
+    \item $G$ - дерево
+    \item $G$ - связен и $m=n-1$
+    \item $G$ - ацикличен и $m=n-1$
+    \item $G$ - ацикличен и при соединении любой пары несмежных вершин ребром
+    образуется ровно 1 цикл.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  Матрица Кирхгофа $B(G)$:
+  \begin{itemize}
+    \item $B_{ij} = 0$, $i$ и $j$ не смежны
+    \item $B_{ij} = -1$, $i$ и $j$ смежны
+    \item $B_{ij} = \deg(i), i = j$
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}[Киргхгофа]
+  Число остовных деревьев в графе G, $|G| = n >= 2$, если G - связен, равно
+  алгебраическому дополнению любого элемента матрицы Кирхгофа.
+\end{theorem}
+
+\begin{consequence}
+  Число помеченных деревьев на n вершинах равно $n^{n-2}$.
+\end{consequence}
+\chapter{Связность}
+\begin{definition}
+  Наименьшее число вершин удаление которых приводит к несвязности графа (или одной вершине) называется числом вершинной связности $\kappa(G)$ .
+\end{definition}
+\begin{definition}
+  Реберной - аналогично. Обозначается $\lambda(G)$
+\end{definition}
+\begin{definition}
+  Вершина $v$ такая, что $G-v$ имеет больше компонент связности, чем $G$, называется точкой сочленения.
+\end{definition}
+\begin{definition}
+  Ребро $e$, такое, что $G-e$ имеет больше компонент связности, чем G, называется мостом.
+\end{definition}
+
+\begin{theorem}
+  Для любого графа справедливо $\kappa(G) \leqslant \lambda(G) \leqslant \delta(G) $.
+\end{theorem}
+
+\begin{definition}
+  Граф называется k-связным, если $\kappa(G)$k, k-реберно связным, если (G)k.
+\end{definition}
+
+\begin{definition}
+  k-связной компонентой называется максимальный k-связный подграф.
+\end{definition}
+
+\begin{note}
+  Определение связности, 2-связности, 3-связности можно реализовать за линию. А дальше темный лес без полиномиальных алгоритмов. Такие дела.
+\end{note}
+
+\begin{theorem}
+  Две различные $k$-компоненты графа имеют не более чем $(k-1)$ общих вершин.
+\end{theorem}
+
+Немного неопровержимых утверждений:
+\begin{enumerate}
+  \item Степени вершин 2-связного графа $\geqslant 2$.
+  \item Если $G_1$ и $G_2$ - двусвязные и имеют не менее двух общих вершин, то
+  их объединение тоже двусвязный граф.
+  \item Если граф 2-связный и P-простая цепь, то $G \cup P$ -2-связный
+  \item Если вершина $v$ не точка сочленения связного графа, то любые две его
+  вершины можно соединить цепью, не проходящей через v.
+  \item Для любых трех несовпадающих вершин 2-связного графа существует простая цепь,
+  которая соединяет две и не проходит через третью.
+\end{enumerate}
+
+\begin{theorem}
+  G-связный, $|G| > 2$, тогда следующие утверждения эквивалентны.
+  \begin{enumerate}
+    \item G - 2-связный.
+    \item Любые две вершины принадлежат общему простому циклу
+    \item Любая вершина и любое ребро принадлежат общей простой цепи.
+    \item Любые два ребра принадлежат общей простой цепи.
+    \item Для любых вершин $a$ и $b$ и ребра $е$ существует простая $(a,b)$-цепь, которая содержит это ребро.
+    \item Для любых вершин $a,b,c$ существует простая $(a,b)$-цепь, которая проходит через $с$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  Максимальный подграф графа G, который не имеет собственных точек сочленения называется блоком.
+\end{definition}
+
+Свойства блоков:
+\begin{enumerate}
+  \item Любые два блока графа имеют не более одной общей вершины.
+  \item Если блок содержит вершины x, y, то он содержит и всякую простую (x,y)-цепь этого графа
+  \item Если вершина входит в более, чем один блок, то она - точка сочленения.
+\end{enumerate}
+
+\begin{definition}
+  Множество блоковых множеств является покрытием множества вершин.
+\end{definition}
+\begin{definition}
+  Вершинный $(a,b)$-сепаратор - множество вершин графа, таких, что при их
+  удалении $a$ и $b$ окажутся в различных компонентах.
+\end{definition}
+
+\begin{theorem}[Менгера]
+  Наименьшее число вершин разделяющих 2 несмежные вершины a и b равно наибольшему числу попарно непересекающихся простых (a,b) - цепей графа.
+\end{theorem}
+
+\begin{theorem}[Уитни]
+  Граф k-связный тогда и только тогда, когда любая пара его несовпадающих вершин соединена не менее чем k попарно непересекающимися цепями.
+\end{theorem}
+\begin{definition}
+  Граф называется локально-связным если для каждой вершины v связен граф N(v).
+\end{definition}
+
+
+\chapter{Независимость и покрытие}
+\begin{definition}
+  Множество вершин называется независимым, если любые две вершины не смежны (индуцированный граф пуст).
+\end{definition}
+\begin{definition}
+  $\alpha_0(G)$ - мощность наибольшего независимого множества вершин.
+\end{definition}
+
+\begin{theorem}
+  Для любого графа справедливо неравенство
+  $\alpha_0(G) >= \sum_{v \in VG}1 / (1 + \deg v)$
+\end{theorem}
+\begin{consequence}
+  Для любого графа порядка n справедливо
+  $\alpha_0(G) >= n / (1 + d) >= n / (1 + \Delta)$,
+  d - среднее арифметическое степеней вершин.
+\end{consequence}
+
+\begin{theorem}
+  Пусть G - связный граф порядка $n \geqslant 3$. $G$ не содержит $C_3$ и не
+  является цепью либо циклом нечётной длины, тогда справедливо
+  $\alpha_0(G) >= n / (\Delta(\Delta + 1)) + \sum_{v \in VG}1 / (1 + \deg v)$
+\end{theorem}
+
+\begin{theorem}
+  Для любого графа G справедливо
+  \begin{align*}
+    \alpha_0(G) \leqslant p^0 + \min\set{p^-, p^+}
+  \end{align*}
+  \begin{itemize}
+    \item $p^0$ - число нулевых собственных значений матрицы смежности графа.
+    \item $p^-$ - число отрицательных собственных значений.
+    \item $p^+$ - число положительных собственных значений.
+  \end{itemize}
+\end{theorem}
+
+\begin{definition}
+  Подмножество $V' \subset V(G)$ называется вершинным покрытием графа $G$, если
+  его вершины покрывают все рёбра графа.
+\end{definition}
+Основная задача: поиск наименьшего покрытия (Vertex Cover).
+
+\begin{definition}
+  $\beta_0(G)$ - мощность наименьшего покрытия - число вершинного покрытия.
+\end{definition}
+
+Дополнение независимого множества в G = покрытие в G (и наоборот).
+
+\begin{theorem}
+  Множество P является наименьшим покрытием тогда и только тогда, когда
+  дополнение P - наибольшее независимое множество. Таким образом,
+  \begin{align*}
+    \alpha_0(G) + \beta_0(G) = n.
+  \end{align*}
+\end{theorem}
+
+\begin{definition}
+  Подмножество $E' \subset E(G)$ называется независимым, если все его элементы
+  попарно не смежные (паросочетание, matching).
+\end{definition}
+
+\begin{definition}
+  Паросочетание называется совершенным, если  покрывает все вершины графа.
+\end{definition}
+
+\begin{definition}
+  Подмножество рёбер называется рёберным покрытием графа, если оно покрывает все вершины графа.
+\end{definition}
+
+\begin{definition}
+  $\alpha_1(G)$ - число рёберной независимости, число паросочетаний.
+\end{definition}
+
+\begin{definition}
+  $\beta_1(G)$ - мощность наименьшего рёберного покрытия - число рёберного покрытия.
+\end{definition}
+
+\begin{theorem}[Галлаи]
+  Пусть $G$ - граф без изолированнных вершин. Тогда верно равенство
+  \begin{align*}
+    \alpha_1(G) + \alpha_1(G) = n.
+  \end{align*}
+\end{theorem}
+
+\begin{definition}
+  $\forall A \subset V(G), N_G(A) = \cup_{v \in A}N(v) \ A$ - окружение множества А.
+\end{definition}
+\begin{theorem}[Холла]
+  Для существования в двудольном графе $G(X, Y, E)$ паросочетания, покрывающего
+  $X \Leftrightarrow (\forall A \subset X \Rightarrow |A| \leqslant |N_G(A)|)$
+\end{theorem}
+\begin{consequence}
+  Любой непустой регулярный двудольный граф имеет совершенное паросочетание.
+\end{consequence}
+\begin{consequence}
+  Регулярный двудольный граф ненулевой степени является рёберно непересекающимся
+  объединением 1-факторов (1-фактор = совершенное паросочетание).
+\end{consequence}
+
+\begin{theorem}
+  Для существования в двудольном графе $G$ паросочетания мощности $t$ необходимо
+  и достаточно, чтобы выполнялось
+  \begin{align*}
+    \forall A \subset X, t \leqslant |X| \Rightarrow N(A) \geqslant |A| + t - |X|
+  \end{align*}
+\end{theorem}
+\begin{theorem}
+  Пусть $G(X,Y,E)$ - двудольный граф, $А \subset X$. Величину $\delta_0 = \max\delta(A) = \max(|A|-|N(A)|), A \neq \emptyset, \delta(A)=0, A = \emptyset)$  называют дефицитом графа G.
+\end{theorem}
+
+\begin{theorem}
+  Для произвольного двудольного графа $G(X, Y, E)$ c непустыми долями справедливо:
+  \begin{align*}
+    \alpha_1(G) = |X| - \delta_0
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}
+  Для произвольного двудольного графа G(X, Y, E)  c непустыми долями справедливо:
+  \begin{align*}
+    \beta_0(G) = \alpha_1(G)
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[Татта]
+  Для существования совершенного паросочетания в графе G необходимо и
+  достаточно, чтобы для $\forall S \subset V(G)$ выполнялось $\rho(S) \leqslant |S|$,
+  где $\rho(S)$ - число компонент нечетного порядка графа $G-S$.
+\end{theorem}
+
+\begin{theorem}[двуцветная теорема Рамсея]
+  Для любого натурального p существует $n_0$, что при $n \geqslant n_0$ любой
+  $n$-вершинный граф содержит или независимое множество мощности $p$ или клику
+  размера $p$. Число $n_0$ в этом случае называют числом Рамсея для $p$.
+\end{theorem}
+
+Цепочка утверждений, показывающая полиномиальную разрешимость задачи о независимости в классе двудольных графов:
+Теорема Холла -> теорема 14 -> определение дефицита -> теоремы 15,16.
+
+
+
+
+\chapter{Планарность}
+\begin{definition}
+  Жорданова кривая - непрерывная спрямляемая линия, не имеющая самопересечений.
+\end{definition}
+
+\begin{definition}
+  Множество D называется доминирующим, если любая vD смежна с D.
+\end{definition}
+
+\begin{theorem}[Жордана]
+  Если есть замкнутая жорданова кривая, то она разбивает плоскость на две части.
+  Незамкнутые кривые - не разбивают. Примечание: теорема неверна для тора.
+\end{theorem}
+
+\begin{definition}
+  Пусть имеется произвольный непустой граф G. $L(G)$ - граф, в котором вершинами
+  являются рёбра $G$, а рёбрами - наличие общей концевой вершины.
+\end{definition}
+
+\begin{definition}
+  Граф Н называется реберным если G, что $H = L(G)$.
+\end{definition}
+
+\begin{definition}
+  Множество $E’ \subset E(G)$называется разделяющим если $G \\ E'$ содержит
+  большее число компонент, чем $G$. Минимальное разделяющее множество называется
+  разрезом.
+\end{definition}
+
+\begin{stm}
+  Всякий подграф планарного графа является планарным графом.
+\end{stm}
+
+\begin{stm}
+  Граф планарен тогда и только тогда, когда все его связные компоненты планарны.
+\end{stm}
+
+\begin{definition}
+  Гранью плоского графа называется максимальное множество точек плоскости,
+  каждая пара которых может быть соединена жордановой кривой без пересечения
+  ребер графа. Каждая точка плоскости принадлежит хотя бы одной грани.
+\end{definition}
+
+\begin{stm}
+  Любую грань плоского графа можно сделать внешней в некоторой плоской укладке.
+\end{stm}
+
+\begin{stm}
+  Возможно склеивание двух компонент связности по ребру или вершине без потери
+  свойства планарности.
+\end{stm}
+
+\begin{stm}
+  Для всякого плоского графа произвольная точка не лежащая на ребре принадлежит
+  ровно 1 грани. Точка, принадлежащая ребру, но не являющаяся концевой вершиной
+  этого ребра, принадлежит ровно 1 грани если ребро является мостом и 2 граням
+  в противном случае.
+\end{stm}
+
+\begin{theorem}[Эйлера]
+  Для каждого связного плоского графа верно равенство $n - m + f = 2$.
+\end{theorem}
+
+\begin{consequences}
+  \item Граф имеет единственную укладку т. и т.т., когда он является треугольником.
+  \item (Балинского). Остов n-мерного многогранника должен быть n-связен.
+  \item Если данный $(n,m)$-граф связен и планарен, то верно неравенство
+  $m <= 3n - 6$.
+  \item Пусть имеется $(n,m)$-граф, у которого граница каждой грани является
+  простым циклом длины $r$, связна и планарна. Тогда верно $m(r - 2)=r(n - 2)$
+\end{consequences}
+
+\begin{theorem}
+  Плоский граф 2-связен т. и т. т., когда граница всякой его грани является простым циклом.
+\end{theorem}
+
+\begin{theorem}
+  Связный граф планарен т. и т. т. когда каждый его блок планарен.
+\end{theorem}
+
+\begin{definition}
+  Плоская триангуляция - граф, в котором каждая грань является (ограничена) треугольником.
+\end{definition}
+
+\begin{definition}
+  Плоская триангуляция - $3$ -связный граф.
+\end{definition}
+
+\begin{theorem}
+  Граф является максимальным плоским графом т. и т. т. когда он является плоской триангуляцией.
+\end{theorem}
+
+\begin{consequences}
+  \item Каждый плоский граф является подграфом некоторой триангуляции.
+  \item Для любого максимального планарного (n,m)-графа верно m = 3n - 6.
+\end{consequences}
+
+\begin{definition}
+  G называется внешнепланарным если есть грань, к которой принадлежат все его вершины.
+\end{definition}
+
+\begin{stm}
+  Если G - плоская триангуляция, n>=4 , то для |G| имеем (G)>=3.
+\end{stm}
+
+\begin{stm}
+  Всякий планарный граф с n >= 4 имеет по крайней мере 4 вершины с deg(v) <= 5;
+\end{stm}
+
+\begin{definition}
+  Два графа называют гомеоморфными, ели они могут быть получены из некоторого
+  графа путем применения операций подразбиения его рёбер.
+\end{definition}
+
+\begin{theorem}[Понтрягина-Куратовского]
+Граф планарен т. и т. т. когда он не содержит графов, гомеоморфных K5 и K3,3
+\end{theorem}
+
+\begin{theorem}[Вагнера]
+  Граф планарен т. и т. т. когда в нём нет графов, стягиваемых к K5 и K3,3
+\end{theorem}
+
+\begin{definition}
+  Геометрически двойственный граф $(G*)$. В каждой грани выберем по одной точке -
+  вершины будущего графа. Для каждого ребра исходного графа соединим ребром
+  вершины граней по разные его стороны (если ребро было мостом - будет петля).
+\end{definition}
+
+Свойства геометрически двойственного графа:
+\begin{enumerate}
+  \item $n^* = f, m^* = m, f^* = n$.
+  \item Если $G$ является связным плоским графом, то $G^{**} G$
+  \item Пусть $G$ является произвольным плоским графом. Подмножество рёбер
+  образует в $G$ простой цикл тогда и только тогда, когда в $G^*$
+  соответствующие рёбра образуют разрез.
+  \item Пусть $G$ является произвольным связным графом. Если существует биекция,
+  переводящая все простые циклы $G$ в разрезы $G^*$ и наоборот, то $G^*$ -
+  абстрактно-двойственный.
+\end{enumerate}
+
+\begin{theorem}[Уитни]
+  Граф планарен $\Leftrightarrow$ когда он имеет абстрактно-двойственный.
+\end{theorem}
+
+\begin{theorem}[Вагнера]
+  Всякий планарный граф может быть уложен на плоскости так, что каждое его
+  ребро будет прямолинейным отрезком.
+\end{theorem}
+
+Характеристики непланарности:
+\begin{enumerate}
+  \item Род графа $\gamma(G)$ - минимальный род поверхности, на которую граф
+  может быть уложен
+  \begin{align*}
+    &\gamma(G) >= ](m-3n)/6 + 1[\\
+    &\gamma(Kn) = ](n-3)(n-4)/12[
+  \end{align*}
+  \item Число скрещиваний $cr(G)$ - наименьшее число пересечений рёбер для
+  укладки графа на плоскости (NP-трудная задача)
+  \begin{align*}
+    &cr(Kn) \leqslant \dfrac{1}{4}[n/2] [(n-1)/2][(n-2)/2] [(n-3)/2]\\
+    &cr(K_{p,q}) = [p/2] [(p-1)/2][q/2] [(q-1)/2]
+  \end{align*}
+  \item Толщина графа $t(G)$ - наименьшее число его планарных подграфов,
+  объединение которых даёт весь граф (NP-трудная задача)
+  \begin{align*}
+    &t(G) >=]m/(3n-6)[\\
+    &t(Kn) >= [(n+7)/6],   = при n != 4 mod 6, n != 9
+  \end{align*}
+  \item Искажённость графа $sk(G)$ - наименьшее число рёбер, удаление которых
+  сделает граф планарным (NP-трудная задача)
+  \begin{align*}
+    sk(K_n) = C_n^2 - 3n + 6, n \geqslant 3
+  \end{align*}
+\end{enumerate}
+
+\chapter{Обходы в графах}
+\begin{definition}
+  Простой цикл в графе называется эйлеровым, если он содержит все рёбра графа.
+  Цепь с аналогичными свойствами также называют йлеровой.
+\end{definition}
+\begin{definition}
+  Набор рёбер на непересекающихся цепях покрывает граф если все рёбра являются
+  рёбрами графа.
+\end{definition}
+
+\begin{theorem}[Эйлера]
+  Связный граф является эйлеровым тогда и только тогда, когда степени всех его
+  вершин чётные.
+\end{theorem}
+
+\begin{consequence}
+  Пусть связный граф G содержит ровно $k$ вершин нечётной степени. Тогда число
+  непересекающихся цепей, покрывающих граф, равно $k/2$.
+\end{consequence}
+
+\begin{theorem}[Коцига]
+  Пусть $С$ и $С'$ - два различных эйлерова цикла графа $G$. Тогда существует
+  такая последовательность $C=c_1,c_2,...,c_t=C'$ эйлеровых циклов в этом графе,
+  что $c_j$ получается из $c_{j+1}$ изменением порядка обхода некоторого
+  подцикла на обратный.
+\end{theorem}
+
+\begin{definition}
+  Простой цикл называется гамильтоновым, если он проходит через каждую вершину
+  графа.
+\end{definition}
+
+\begin{theorem}[Дирака]
+  Если $n \geqslant 3$ и $\forall v \in V(G), deg v >= n/2$, то граф гамильтонов.
+\end{theorem}
+
+\begin{theorem}[Оре]
+  Если $n \geqslant 3$ и $\forall v, u \in V(G), \deg v + \deg u \geqslant n$,
+  то граф гамильтонов
+\end{theorem}
+
+\begin{theorem}[ХвАтала]
+  Пусть $G$ имеет степенную последовательность $d_1 \leqslant d_2 \leqslant
+  \ldots \leqslant d_n$. Граф $G$ гамильтонов, если $\forall k \in [1,n/2[$
+  справедлива импликация $d_k \leqslant k \Rightarrow d_{n-k} \geqslant n-k$.
+\end{theorem}
+
+\begin{definition}
+  Граф называется панциклическим если он содержит все циклы от $C_3$ до $C_n$.
+\end{definition}
+
+\begin{theorem}[Уитни]
+  Плоская триангуляция без разделяющих треугольников (треугольников, которые не
+  являются границей грани) является гамильтоновым графом.
+\end{theorem}
+
+\begin{theorem}[Татта]
+  Всякий 4-связный планарный граф гамильтонов.
+\end{theorem}
+
+\begin{theorem}[Кляйшнера]
+  Если ?? и $G$ - 2-связный, то $G^2$ гамильтонов.
+\end{theorem}
+
+\begin{theorem}
+  Если граф G связный, локально-связный,  claw-free (, т. е. не содержит такого индуц. подграфа), то G - гамильтонов.
+\end{theorem}
+
+\begin{definition}
+  Обхватом графа называется длина минимального простого цикла в этом графе.
+\end{definition}
+
+\begin{theorem}[Гринберга]
+  Пусть $f_k$ - число k-граней плоского гамильтонового графа. Тогда для каждого
+  $k \geqslant 3$ существуют $f'_k,f''_k$ - целые неотрицательные числа, т. ч.
+  $f'_k + f''_k = f_k$  и
+  \begin{align*}
+    \sum_{k \geqslant 3}f'_k*(k-2) = \sum_{k \geqslant 3}f''_k*(k-2)
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[Смита]
+  Через всякое ребро кубического графа проходит чётное число гамильтоновых циклов.
+\end{theorem}
+
+
+\chapter{Раскраски}
+\begin{definition}
+  Раскраска - произвольная функция, переводящая множество вершин в множество цветов.
+\end{definition}
+
+\begin{definition}
+  Правильная раскраска - смежные вершины имеют различные цвета.
+\end{definition}
+
+\begin{definition}
+  Граф наз. k-раскрашиваемым если для него существует правильная раскраска в k цветов.
+\end{definition}
+
+\begin{definition}
+  Хроматическое число графа - минимальное k для которого граф  к-раскрашиваем.
+\end{definition}
+
+\begin{definition}
+  Карта - плоский граф без мостов.
+\end{definition}
+
+\begin{definition}
+  Раскрака карты - отображение множества граней карты в множество цветов.
+\end{definition}
+
+\begin{definition}
+  Хроматическое число поверхности - минимальное k для которого любая карта укладываемая на этой поверхности  к-раскрашиваема.
+\end{definition}
+
+Задача о 4 красках: Для любого плоского графа $\chi(G) \leqslant 4$.
+
+\begin{theorem}[Хилла]
+  Всякий планарный граф является  5-раскрашиваемым.
+\end{theorem}
+
+\begin{theorem}[Крола]
+  G – плоский 3-раскрашиваемый $\Leftrightarrow$ он является подграфом чётной триангуляции (все степени вершин чётные).
+\end{theorem}
+
+\begin{consequence}
+  Граф G можно раскрасить в 3 цвета, если в нём не более 4 треугольников.
+\end{consequence}
+
+\begin{theorem}[Рингеля-Янгса]
+  Пусть $S_p$ - сфера с $р$ ручками (поверхность рода $р$). Тогда:
+  \begin{align*}
+    \chi(S_p) = \left[\dfrac{7 + \sqrt{1+48p}}{2}\right], p > 0
+  \end{align*}
+\end{theorem}
+
+Гипотеза Хадвигера: Любой связный n-хроматический граф стягивается к $K_n$.
+Доказано для n = 1, 2, 3, 5.
+
+\begin{theorem}[Брукса]
+  Пусть G - связный, $G \neq K_n$, $\Delta(G) \geqslant 3$. Тогда  $\chi(G) \leqslant \Delta(G)$.
+\end{theorem}
+
+\begin{definition}
+  Хроматическая функция (хроматический полином) - число попарно-различных
+  правильных раскрасок в t цветов.
+\end{definition}
+
+\begin{align*}
+  &f_0(n, t) = t^n,\\
+  &f(K_n, t) = { t(t-1)(t-2)...(t-n+1), t >= n \text{ и } 0 \text{ при } t < n }
+\end{align*}
+
+\begin{stm}
+  Если $G_1, G_2, ..., G_k$– связные компоненты $G$, тогда
+  \begin{align*}
+    f(G, t) = \prod_{i = 1}^kf(G_i, t)
+  \end{align*}
+\end{stm}
+
+\begin{stm}
+  Пусть $G = G_1 \cup G_2$ и графы $G_1, G_2$ имеют в точности одну общую
+  вершину, тогда:
+  \begin{align*}
+    f(G, t)= \dfrac{f(G_1, t) \cdot f(G_2, t)}{t}
+  \end{align*}
+\end{stm}
+
+\begin{stm}
+  Пусть $u$ и $v$ - две несмежные вершины $G$, и пусть $G_1 = G + uv$, $G_2$ –
+  граф, полученный стягиванием вершин $u$ и $v$. Тогда:
+  \begin{align*}
+    f(G, t)= f(G_1, t) + f(G_2, t)
+  \end{align*}
+\end{stm}
+
+\begin{theorem}
+  Хроматический полином $(n,m)$-графа $G$, имеющего в точности $k$ связных
+  компонент:
+  \begin{align*}
+    f(G,t) = t^n -mt^{n-1} + a_{n-2}t^{n-2} - a_{n-3}t^{n-3} + \ldots
+    + (-1)^{n-k}t^k,
+  \end{align*}
+  где $a_i$ – целые неотрицательные числа
+\end{theorem}
+
+\begin{theorem}
+  Граф $G, |G| = n$, дерево $\Leftrightarrow f(G,t)=t(t - 1)^{n - 1}$
+\end{theorem}
+
+\begin{definition}
+  Совершенный граф - если $\chi(H) = \phi(H)$для любого индуцированного
+  подграфа $H$ ($\phi(G)$ - размер максимальной клики (плотность графа) ).
+\end{definition}
+
+\begin{theorem}[Поль Сеймур + Берт, гипотеза Бержа]
+  Граф совершенный $\Leftrightarrow$ ни $G,$ ни его дополнение не содержат
+  индуцированных циклов нечётной длины.
+\end{theorem}
+
+\begin{consequences}
+  \item $G$ – совершенный $\Leftrightarrow$ дополнение $G$ – совершенный.
+  \item Двудольные графы и их дополнения совершенны.
+  \item Триангулированные графы и их дополнения совершенны (граф
+  триангулированный, если ни один его порожденный подграф не является
+  простым циклом длины больше трёх).
+\end{consequences}
+
+\begin{definition}
+  Рёберная раскраска $G$ = вершинная раскраска $L(G)$
+\end{definition}
+
+\begin{definition}
+  Хроматический индекс $\chi'(G)$- минимальное число, в которое правильно
+  раскрашиваемы рёбра.
+\end{definition}
+\begin{theorem}[Визинга]
+  $\Delta(G) \leqslant \chi'(G) \leqslant \Delta(G) + 1$.
+\end{theorem}
+
+\chapter{Ориентированные графы}
+\begin{definition}
+  Простой цикл -> контур. Простая цепь -> путь.
+\end{definition}
+
+\begin{definition}
+   Орграф называется сильносвязным когда любая вершина достижима из любой другой.
+\end{definition}
+
+\begin{definition}
+  Орграф называется одностороннесвязанный когда для любой пары вершин одна из
+  них достижима из другой.
+\end{definition}
+
+\begin{stm}
+  Орграф является сильным тогда и только тогда, когда в нём есть остовный
+  циклический маршрут.
+\end{stm}
+
+\begin{stm}
+  Орграф является односторонним тогда и только тогда, когда в нём есть
+  остовный маршрут.
+\end{stm}
+
+\begin{definition}
+  Сильной компонентой называется любой максимальный сильный подграф.
+\end{definition}
+
+\begin{definition}
+  Конденсация графа - сливаем вершины каждой сильной компоненты в одну.
+\end{definition}
+
+\begin{stm}
+  Конденсация любого орграфа не имеет контуров.
+\end{stm}
+
+\begin{definition}
+  Полустепени исхода и захода
+\end{definition}
+
+\begin{definition}
+  Орграф называется турниром если его основание является графом $К_n$.
+\end{definition}
+
+\begin{theorem}
+  Связный ориентированный граф эйлеров тогда и только тогда, когда
+  \begin{align*}
+    \forall v \in V(G) \Rightarrow d^+(v) = d^-(v).
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}[Мейнела]
+  Пусть $G$ - сильный, $n > 1$. Если для любой его пары $u != v$ несмежных
+  вершин выполняется неравенство $\deg u + \deg v >= 2n - 1$ то орграф гамильтонов.
+\end{theorem}
+
+\begin{theorem}
+  Для любого орграфа $G$ справедливы неравенство $l(G)<= \alpha_0(G)$, где
+  $l(G)$ - минимальное число путей, на которое можно разбить $G$, а
+  $\alpha_0(G)$- мощность наибольшего независимого множества вершин.
+\end{theorem}
+
+\begin{definition}
+  Орграф называется транзитивным если из того что $(x,y)$ и $(y, z)$ принадлежат
+  графу автоматически следует, что $(x,z)$ также принадлежит.
+\end{definition}
+
+\begin{consequences}
+  \item Если орграф транзитивный, то $l(G) = \alpha_0(G)$.
+  \item В каждом турнире существует гамильтонов путь.
+\end{consequences}
+
+\begin{theorem}[Галлан]
+  Пусть $k$ - максимальная длина пути в орграфе. Тогда $\chi(G) \leqslant k+1$.
+\end{theorem}
+
+\chapter{Степенные последовательности}
+\begin{definition}
+  Степенная последовательность - последовательность степеней вершин
+  \begin{align*}
+    d_1 \geqslant d_2 \geqslant \ldots \geqslant d_n
+  \end{align*}
+\end{definition}
+
+\begin{definition}
+  Последовательность чисел, для которой существует соответствующий граф
+  называется графической.
+\end{definition}
+
+\begin{definition}
+  Переключение: Пусть $ab,cd \in E(G)$, $ac,bd \notin E(G)$. Тогда
+  говорят, что $G$ допускает переключение
+  (удаляется первая пара ребер и добавляется вторая).
+  \begin{align*}
+    ((a, b), (c, d)) -> ((a, c), (b, d))
+  \end{align*}
+\end{definition}
+
+\begin{lemma}
+  Пусть $VG = \set{1, 2, … n}, \deg i = d_i, d_i >= d_{i + 1}$. Тогда для
+  любого $i$ существует такая последовательность переключений, что в новом графе
+  окружение вершины $i$ совпадает с $d_i$ вершинами наибольших степеней.
+\end{lemma}
+
+\begin{theorem}
+  Любая реализация графической последовательности получается из любой другой её
+  реализации путём применения подходящей цепочки переключений.
+\end{theorem}
+
+\begin{definition}
+  Униграф - граф, степенная последовательности которого допускает
+  единственную реализацию.
+\end{definition}
+
+\begin{definition}
+  Операция получения производной последовательности:
+  \begin{enumerate}
+    \item Удаляем $d_i$.
+    \item Из первых $d_i$ элементов вычитаем 1.
+  \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Критерий Гавела]
+  $d$ - правильная $n$-последовательность. Если для какого-то индекса $i$
+  производная последовательность $d^i$ - графическая, то исходная
+  последовательность - тоже графическая. Если $d$ - графическая, то любая
+  последовательность $d^i$ - графическая.
+\end{theorem}
+
+\begin{theorem}[Эрдёш]
+  Правильная n-последовательность является графической $\Leftrightarrow$ для
+  каждого $1 \leqslant k \leqslant n-1$ выполняется неравенство
+  \begin{align*}
+    \sum_{i = 1}^n d_i \leqslant k(k - 1) +  \sum_{i = k + 1}^n \min(k, di)
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}
+  Правильная графическая n-последовательность d имеет связную реализацию
+  $\Leftrightarrow d_n \geqslant 0$ и выполняется неравенство:
+  \begin{align*}
+    \sum_{i = 1}^n d_i \geqslant 2(n - 1).
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}
+  Последовательность реализуется деревом $\Leftrightarrow$
+  \begin{align*}
+    \sum_{i = 1}^n d_i = 2(n - 1)
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}
+  Пара векторов $c = (c_1, ..) и d = (d_1, ..)$ является графической для орграфа
+  ($c$ - степени исхода) $\Leftrightarrow$ выполняется:
+  \begin{enumerate}
+    \item $(c_1 + n - 1, c_2 + n - 1, … c_n + n - 1, d_1, … d_n)$ - графическая
+    для неориентированного графа.
+    \item $\sum_{i = 1^n}c_i = \sum_{i = 1}^n d_i$
+  \end{enumerate}
+\end{theorem}
+
+\chapter{Гиперграфы}
+ 
+\chapter{Теория сложности}
+
+
+\end{document}
